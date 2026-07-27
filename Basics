@@ -1,3 +1,272 @@
+1. What is a class.
+A. Class is simply a user defined datatype from which objects are created. It is just a block of code contains fields and methods. It doesn’t contain any memory only objects contain.
+
+2. What is an object and how to create an object for class.
+A. An object is an instance of a class. A block of memory that has been allocated when object is created. They are created using the “new” keyword. An object makes a class a real-world entity.
+EX:   ClassName  ObjName = new  ClassName ();
+
+3. What is oops in c#.
+A. "OOPs" stands for Object-Oriented Programming System. It is a way of programming approach in the form of classes and objects. It makes code clean, easier to understand and manage, reuse, and extend. The main pillars of OOPS are Encapsulation, Inheritance, Polymorphism, and Abstraction.
+
+4. What is by default access modifier for class.
+A. Default access modifier for class is internal. If no access modifier is declared before a class then by default declared as internal.
+
+5. What is by default access modifier for fields.
+A. Default access modifier for field is private. If no access modifier is declared before a field then by default declared as private.
+
+6. What is variables and how to access.
+A. A variable is like a container used to store data (like numbers, text, etc.). Variables are differet types.
+•	Non-static
+•	Static
+•	Constants
+•	ReadOnly
+
+
+7. What is difference between varchar and nvarchar in DB.
+8. What is console.write line.
+9. What is try parse.
+A. TryParse() is a method used to safely convert a string into another data type (such as int, double, DateTime, etc.) without throwing an exception if the conversion fails.
+Ex: 	string input = "123";
+bool success = int.TryParse(input, out int number);
+
+•	Returns true if conversion succeeds else false.
+•	Stores the converted value in the out variable.
+Common TryParse() Methods:
+int.TryParse()
+double.TryParse()
+decimal.TryParse()
+DateTime.TryParse()
+bool.TryParse()
+
+10. What is difference between parse and try parse.
+Parse()	TryParse()
+Throws exception on invalid input	Returns false
+Requires try-catch for safety	No exception handling needed
+Less suitable for user input	Best for user input
+Returns converted value directly	Returns bool and uses out parameter
+Ex: int number = int.Parse(input);	Ex: int.TryParse(input, out int number);
+
+11. What is optional parameter.
+A. An optional parameter is a method parameter that has a default value. If the caller doesn't pass a value for that parameter, the default value is used automatically.
+EX: 	public void Display(string name = "Guest")
+{
+Console.WriteLine("Hello " + name);
+}
+Note: Optional parameters must come after required parameters means last i.e., in between and front is not allowed
+
+12. What is operator in C#
+A. An operator in C# is a symbol that tells the compiler to perform a specific operation such as arithmetic, comparison, assignment, or logical evaluation on operands.
+
+13. Why need oops.
+A. Object-Oriented Programming (OOP) is necessary because it offers significant advantages in code organization, reusability, and maintainability, making it a powerful paradigm for building large and complex software systems.
+
+14. What is index in SQL.
+15. What is tigger.
+16. What is function in SQL.
+17. Difference between function and SP.
+18. What is constraint in SQL.
+19. What is CTE.
+20. What is cluster and non-cluster index.
+21. Difference between truncate and delete.
+22. Please explain _Viewstart page in MVC.
+1.	In ASP.NET MVC, the _ViewStart.cshtml file is used to define common settings that should be applied to all views, most commonly the layout page.
+2.	Instead of specifying the layout in every view, you can set it once in _ViewStart.cshtml.
+3.	It is present in shared folder.
+4.	@RenderBody() will be present inside layout page where all the pages will going to render here only.
+Ex: 	@{
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
+23. What is error.cshtml page in MVC.
+1.	In ASP.NET MVC, Error.cshtml is a view used to display a friendly error page when an unhandled exception occurs in the application.
+2.	Instead of showing users a technical error message (yellow screen of death, stack trace, etc.), MVC can redirect them to Error.cshtml.
+3.	We need to specify the page in program.cs (app.UseExceptionHandler("/Home/Error");)
+
+24. Can we bind two model in one view.
+A. No, a Razor view can have only one @model declaration. To use data from multiple models in the same view, create a ViewModel that contains those models as properties and pass the ViewModel to the view.
+
+25. What is http client.====done
+26. What is MVC.
+27. How to view interact with controller.
+28. What is attribute routing in MVC.
+29. What is bundling in MVC.
+30. What is minification in MVC.
+31. What is Jquery.
+32. What is selector in Jquery.
+33. What is javascript.
+34. How to change colour any text box using Jquery.
+35. What is partial class.
+36. What is partial view in MVC.
+37. What is server control.
+38. What is web api.
+39. What is restfully services and rest api
+40. What is WCF and how its different from web API.
+41. How to POST form using MVC.
+42. How to call web api from MVC.
+43. What are the filter in MVC
+
+44. How to manage session in MVC.
+45. What is user control in webform.
+46. What is postback method in webform.
+47. What is server controller in webform.
+48. How to bind dropdown in mVC.
+49. What is role in your project.
+50. What is TFS.
+51. What is GIT.
+52. What is CORS in web API.
+53. What is content negotiation in web api.
+54. What is web service.
+55. What is SOAP services.
+56. What is ADO.Net and how is diffent from EF.
+57. What is lazy loading.
+58. what is dataset and table data in ado.net.
+59. what is collection.
+60. Difference between iqueryable and ienumerable.
+61. Enumerable and ienmerator
+62. No action
+63. Render body
+64. Print *
+65. **
+66. ***
+67. ****
+68. *****
+69. Rander page
+70. Type of acutancation.
+71. Abstract and interface
+72. Garbage collector
+73. 0 1 2
+74. What is view in sql
+75. Event in c#
+76. What is repository pattern.
+77. Put and patch difference.
+78. Cross join and left join.
+79. Generic method.
+80. Generic classes.
+81. Generic collection.
+82. difference between primary key and unique key
+83. Var and int difference.
+84. What is manage code and unmanage code.
+85. Difference between var and dynamic.
+86. What is data type.
+87. Write a logic for login user.
+88. Event handler
+89. How to handled exception.
+90. How to log exception.
+91. What is set operator in SQL.
+
+92. 7)swap two row
+93. find max salry
+94. 2nd
+95. pass the two name and print the concatenate with obj
+96. wht is designed pattern and why we use it
+97. What identity in SQL.
+98. How many unique key null in a table
+99. How to implement security in web services or WCF
+100. Which one is better SQL or Oracle.
+101. How many DB we can create in one DB object.
+102. How many table can create in on database.
+103. How to handle transaction in SQL.
+104. What are the designe pattern in C#.
+105. What is factory pattern and explain.
+106. Statc class
+107. Private constructor
+108. Readonly property
+109. Property and field
+110. Write a query to change db male to femal in a table.
+111. Explain CRUD in MVC.
+112. What is the difference between convert.tostring and tostring
+113. Explain in MVC Life cycle.
+114. View data and temp data difference.
+115. What is Route.
+116. Types of validation and it's difference.
+117. sealed class,
+118. Partial class,
+119. Difference between string and string builder,
+120. Difference between array and array list,
+121. Cursor,
+122. Index,
+123. Views
+124. Synchronous dsynchronous ,
+125. cursor different array ,
+126. inner join,
+127. what is .net ,
+128. singleton
+129. write connection string
+130. What is JsonToken.
+131. What is selector in Jquery
+132. What is ajax in Jquery
+133. Update and update range
+134. find second max salary in table
+135. what is Web API
+136. Difference between .Net Framework and .Net core.
+137. What is GIT.
+138. What is repository
+139. Read-only and constant
+
+140. Polymorphism
+141. Inertance
+142. Abstraction
+143. Encpluction
+144. Reverse string program.
+145. Merge two array program.
+146. Add two array program.
+147. Compare two string program.
+148. Facbnioc program.
+149. Arm Strom program.
+150. What is scope in c#.
+151. SQL Query need to practice as much as.
+152. Method overloading and overriding .
+153. MVC life cycle.
+154. What is Area in MVC
+155. What is entity frame work.
+156. Explain datafirst and codefirst approch .
+157. What is html helper in mvc
+158. In what scenarios jQuery can be used?
+159. Can you select all elements using jQuery? How?
+160. How to deal with cookies in jQuery?
+161. Popularly asked jQuery interview questions are how to get the text contents and set
+the text contents of an element using jQuery?
+162. How can you include jQuery on a page?
+163. Does Bootstrap require jQuery?
+164. How is parent() method in jQuery different from parents() method?
+165. What is jquery.min.js?
+166. If you want to check if an element is empty or not, which methods can be used
+167. How is 'this' different from '$(this)' in jQuery
+168. What is a prop() in jQuery? How is it different from Attr()
+169. What is the advantage of method chaining in jQuery
+170. Tell something about the finish method in jQuery
+171. What is dependency injection.
+172. What is validation and how to do in MVC.
+173. What is authorization/authentication
+174. What is property.
+175. What is middle were in core.
+176. What is dB context.
+what is garbage collector.
+177. What is http handler.
+178. What is httpverbs.
+179. Difference between viewbag view data and tempdata.
+180. What is scaffolding in mvc.
+181. What is attributes route in mvc.
+182. What is media formate in webapi.
+183. What is versioning in web API.
+184. What is CLR.
+185. What is EF.
+
+186. What is role-based Auth in MVC.
+187. What is consol application.
+188. What is DBMS
+189. What is RDBMS
+190. What is SQL
+191. What is the difference between SQL and MySQL
+192. What are Tables and Fields
+193. What is a Primary Key
+194. What is a Foreign Key
+195. What is a Query
+196. What is a Subquery? What are its types?
+197. What are some common clauses used with SELECT query in SQL?
+198. What are UNION, MINUS and INTERSECT commands?
+199. What are Entities and Relationships?
+200. What is an Alias in SQL?
+
 => MVC (Model-View-Controller) is an architectural pattern that separates an application into three components: Model, View, and Controller. The Model manages data and business logic, the View displays the user interface, and the Controller handles user requests, interacts with the Model, and returns the appropriate View.
 
 => The View interacts with the Controller by sending HTTP requests (GET or POST). These requests are triggered by user actions such as clicking a link, submitting a form, or making an AJAX request
