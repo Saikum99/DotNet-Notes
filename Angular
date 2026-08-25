@@ -1,0 +1,59 @@
+=> Package.json file will going to contain all the required packages and there versions regarding the application
+=> Angular.json file will going to contain all the configurations regarding the project. Like the home page or start page etc. What ever we are installing we need to register here like bootstrap is installed means, we need to include in styles section in this file.
+=> When the application start the main.ts file will called first that will be declared in the angular.js file
+=> Component will going to contain at least 3 files i.e., html, CSS, ts
+=> name: string = "angular" like this we can able to create the variable in ts.
+
+Data Binding: 
+
+1. String interpolation. {{}}
+2. property binding. []
+3. 2 way binding using ngModel. [()]
+4. Event binding. ()
+
+=> String interpolation is the process of binding the date in the html file from ts.
+Ex: <p>{{name}}</p>
+
+=> If we want to bind the value in the input field we have property binding to bind the value.
+Ex: <input type = "text" [value]="name" />
+=> In this we able to set the type of the field also like attributes
+Ex: <input [type] = "inputType" />
+
+-- Here string interpolation and property binding is the one way data binding 
+
+=> For 2 way data binding we have ngModel that is present in the FormModule.
+=> To use it we need to import in the ts file, imports.
+Ex: <input type = "text" [(ngModel)]="name" />
+
+=> Two way data binding is generally used in input elements.
+
+=> for event binding we need to bind like this 
+Ex: <button (ngModel)="save()">save</button>
+
+Directives:
+
+1. Structural (ngIf, ngFor)
+3. Behavioural (ngClass, ngStyle)
+
+=> Structural directives are used to change the structure of the dom.
+=> Like based on some inputs the dom structure will going to change.
+EX: <div *ngIf="condition">Test2</div> // here we can pass true or false inside the ngIf or else we can also check the condition inside the ngIf.
+    <ul>
+	<li *ngFor="let item in roles">{{item.roleName}</li>  //Here which element we want to repeat that element we have to use ngFor
+    </ul>
+
+=> In modern we have @if, @for for nfIf and ngFor directives we can use it.
+=> here we no need to import any thing to use not like normal directives.
+
+Api calling:
+=> For api calling we have to import the provideHttpClient() inside the app.config.ts file.
+=> Then we can call the api inside the component by improting HttpClient.
+
+Ex: http = inject(HttpClient)		// this is the modern way of injecting services, previous versions we are injecting by using the constructor.
+this.http.get("url").subscribe(function)
+
+=> For routes we have to create routes in the app.routes.ts file. Some routes we can able to create in the individual files also but finally we have to specify in the app.routes.ts file.
+
+=> To display the content based on the routes we need to have "<router-outlet></router-outlet>" inside the html file.
+=> To ceate the links we have to use routerLink. We dont use href because it will going to reload the page.
+=> To make a particular link as active after select we have to use routerLinkActive in the link
