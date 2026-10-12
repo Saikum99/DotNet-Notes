@@ -176,3 +176,481 @@ public class PaymentStratigy
 => In the above example CardPayment, CoupenPayment are set of strategies and  PaymentStratigy is the context for the process, it is responsible for to group the strategies.
 => Here if any other payment option came means we just need to implement the IPayment interface and implement the logic and call in the main method.
 => Here the context class(PaymentStratigy) is responsible for flow execution this is the advantage of strategy pattern where we need a set of strategies to execute then we have to use it.
+
+
+Template design pattern:
+-> The Template Method Design Pattern is a behavioral design pattern that defines the overall structure (skeleton) of an algorithm in a base class. It allows subclasses to redefine or customize specific steps of the algorithm without changing its core structure.
+-> Template design Pattern is a "behavioral design pattern", Make the process flow(template) in the parent class so that all the child classes will going to follow the same flow.
+-> Suppose there is a parent class that contains f1,f2,f3 methods and some child classes inherited it and we need to control the flow (like f3 first then f1 and f2), then we going to create a processor method that contains the flow which is responsible for flow execution. This processor method need to create in parent only.
+
+Ex: 
+public class Program
+{
+	public static void Main(string[] args)
+	{
+		MakeBavarage tea = new CofeeBavarage();
+		tea.BavarageProcessor();
+	}
+}
+
+public abstract class MakeBavarage
+{
+	//Common method
+	public void BoilWater()
+	{
+		Console.WriteLine("Boil Water");
+	}
+	//Individual method
+	public abstract void Brew();
+
+	public void PourInCup()
+	{
+		Console.WriteLine("Pour In Cup");
+	}
+
+	public abstract void AddCordiments();
+
+	//Actual template method
+	private void BavarageProcessor(){
+		BoilWater();
+		Brew();
+		PourInCup();
+		AddCordiments();
+	}
+}
+
+public class TeaBavarage : MakeBavarage
+{
+	public override void Brew()
+	{
+		Console.WriteLine("Tea Brew");
+	}
+	public override void AddCordiments()
+	{
+		Console.WriteLine("Tea Cordiments");
+	}
+}
+
+public class CofeeBavarage: MakeBavarage
+{
+	public override void Brew()
+	{
+		Console.WriteLine("Cofee Brew");
+	}
+	public override void AddCordiments()
+	{
+		Console.WriteLine("Cofee Cordiments");
+	}
+}
+
+=> Here the flow is same for both the processes but there is a change in the Brew and Cordiments. This is template design pattern.
+
+
+Builder Design Pattern:
+=> The Builder Design Pattern is a creational design pattern that provides a step-by-step approach to constructing complex objects.
+=> Suppose there is a situation to create object of the class that accepts parameters, but when creating the object we need to remember the order of the parameters and no of parameters. Suppose there is a change in order we need to change all the objects which is huge thing. We can also give setters to set the values but some values may misses, to overcome the situation builder pattern come.
+Ex:
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        UserProfile profile = new UserProfile.Builder().setName("Sai").setId(1).Build();	//object creation
+    }
+}
+
+public class UserProfile
+{
+    private int Id;
+    private string Name;
+    private UserProfile(Builder builder)
+    {
+        this.Id = builder.Id;
+        this.Name = builder.Name;
+    }
+
+    public class Builder
+    {
+        public int Id;
+        public string Name;
+        public Builder setId(int Id)
+        {
+            this.Id = Id;
+            return this;
+        }
+        public Builder setName(string Name)
+        {
+            this.Name = Name;
+            return this;
+        }
+        public UserProfile Build()
+        {
+            return new UserProfile(this);
+        }
+    }
+    
+}
+
+State Design Pattern:
+=> The State Design Pattern is a behavioral design pattern that lets an object alter its behavior when its internal state changes. This avoids complex conditional statements and makes the system more maintainable and flexible.
+
+Ex: Media player can have different states like play, pause and stop where 
+1. play is done when the state not in play or stop.
+2. pause is done when the state not in pause or stop.
+3. stop is done when the state not in stop.
+
+class Program
+{
+    public static void Main(string[] args)
+    {
+        MediaPlayer player = new MediaPlayer();
+        player.Play();
+        player.Stop();
+        player.Play();
+        player.Pause();
+        Console.ReadLine();
+    }
+}
+
+public class MediaPlayer
+{
+    private IState _state = new StopState();
+
+    public void SetState(IState state)
+    {
+        _state = state;
+    }
+    public void Play()
+    {
+        _state.Play(this);
+    }
+    public void Pause()
+    {
+        _state.Pause(this);
+    }
+    public void Stop()
+    {
+        _state.Stop(this);
+    }
+}
+
+public interface IState
+{
+    void Play(MediaPlayer mediaPlayer);
+    void Pause(MediaPlayer mediaPlayer);
+    void Stop(MediaPlayer mediaPlayer);
+}
+
+ public class PlayState : IState
+ {
+     public void Pause(MediaPlayer mediaPlayer)
+     {
+         Console.WriteLine("Pausing media playback.");
+         mediaPlayer.SetState(new PlayState());
+     }
+
+     public void Play(MediaPlayer mediaPlayer)
+     {
+         Console.WriteLine("Media is already playing.");
+     }
+
+     public void Stop(MediaPlayer mediaPlayer)
+     {
+         Console.WriteLine("Stopping media playback.");
+         mediaPlayer.SetState(new StopState());
+     }
+ }
+
+ public class PauseState: IState
+ {
+     public void Pause(MediaPlayer mediaPlayer)
+     {
+         Console.WriteLine("Media is already paused.");
+     }
+     public void Play(MediaPlayer mediaPlayer)
+     {
+         Console.WriteLine("Resuming media playback.");
+         mediaPlayer.SetState(new PlayState());
+     }
+     public void Stop(MediaPlayer mediaPlayer)
+     {
+         Console.WriteLine("Stopping media playback.");
+         mediaPlayer.SetState(new StopState());
+     }
+ }
+
+public class StopState : IState
+{
+    public void Pause(MediaPlayer mediaPlayer)
+    {
+        Console.WriteLine("Media is stop state");
+    }
+
+    public void Play(MediaPlayer mediaPlayer)
+    {
+        Console.WriteLine("Playing media playback.");
+        mediaPlayer.SetState(new PlayState());
+    }
+
+    public void Stop(MediaPlayer mediaPlayer)
+    {
+        Console.WriteLine("Already is stop state");
+    }
+}
+
+=> Here if we observe every time new object is creating for every switch which will take lot of memory if lot of users.
+=> To resolve it Singleton design pattern came.
+
+
+Singleton design pattern:
+=> This pattern ensures that one class will contain one object.
+=> Here object is created when we call the constructor. So if we stop make call then object will not created, but the first object is created by exposing a method that will return the instance.
+
+Ex:
+public class Singleton
+{
+	private static Singleton instance;
+	private Singleton(){}
+	public static Singleton getInstance()
+	{
+		if(instance == null){
+			instance = new Singleton();
+		}
+		return instance;
+	}
+}
+public class Program
+{
+	public static void Main(string[] args)
+	{
+		Singleton s1 = Singleton.getInstance();
+		Console.WriteLine(s1);
+
+		Singleton s2 = Singleton.getInstance();
+		Console.WriteLine(s2);
+	}
+}
+
+Observer Design Pattern:
+=> Not understand.
+
+Factory Design Pattern:
+The Factory Method is a creational design pattern that defines an interface for creating objects but lets subclasses decide which object to instantiate.Here objects are returned where as stratigy will call specified method.
+Ex:
+// Library classes
+abstract class Vehicle 
+{
+    public abstract void printVehicle();
+}
+
+class TwoWheeler : Vehicle 
+{
+    public void printVehicle()
+    {
+        Console.WriteLine("I am two wheeler");
+    }
+}
+
+class FourWheeler : Vehicle 
+{
+    public void printVehicle()
+    {
+        Console.WriteLine("I am four wheeler");
+    }
+}
+
+// Factory Interface
+interface VehicleFactory {
+    Vehicle createVehicle();
+}
+
+// Concrete Factory for TwoWheeler
+class TwoWheelerFactory : VehicleFactory 
+{
+    public Vehicle createVehicle()
+    {
+        return new TwoWheeler();
+    }
+}
+
+// Concrete Factory for FourWheeler
+class FourWheelerFactory : VehicleFactory 
+{
+    public Vehicle createVehicle()
+    {
+        return new FourWheeler();
+    }
+}
+
+// Client class
+class Client {
+    private Vehicle pVehicle;
+
+    public Client(VehicleFactory factory)
+    {
+        pVehicle = factory.createVehicle();
+    }
+
+    public Vehicle getVehicle() { return pVehicle; }
+}
+
+// Driver program
+public class GFG {
+    public static void main(String[] args)
+    {
+        VehicleFactory twoWheelerFactory
+            = new TwoWheelerFactory();
+        Client twoWheelerClient
+            = new Client(twoWheelerFactory);
+        Vehicle twoWheeler = twoWheelerClient.getVehicle();
+        twoWheeler.printVehicle();
+
+        VehicleFactory fourWheelerFactory
+            = new FourWheelerFactory();
+        Client fourWheelerClient
+            = new Client(fourWheelerFactory);
+        Vehicle fourWheeler
+            = fourWheelerClient.getVehicle();
+        fourWheeler.printVehicle();
+    }
+}
+
+Adapter Design Pattern:
+=> Adapter Design Pattern is a structural pattern that acts as a bridge between two incompatible interfaces, allowing them to work together.
+=> This pattern is used where there is a situation we need to sync the already existing functionality with the latest features.
+Ex:
+=> Suppose there is a payment system and contain cash and UPI payments. But there is a card payment already implemented but it is not the part of payment system which is a separate class and don't implement the payment system interface.
+=> Now we want to sync the card payment with the payment system. How means one way is implement the payment system imterface, but the class will change and where ever this class is using will going to effect.
+=> So we have to sync without changing the card payment code. 
+=> Here the adapter pattern came.
+=> Here we going to create the CardPayment adaptor class that will implement the payment system and calls the actual method of the card payment.
+
+class CardPaymentAdaptor : PaymentSystem
+{
+	Private CardPayment CP;
+	//Overriding method of the PaymentSystem
+	public void pay(){		
+		CP.MakePayment(); //Actual method of the card Payment
+	}
+
+}
+
+Decorator Design Pattern:
+Not understand
+
+Composite Pattern:
+The Composite Pattern is a structural design pattern that organizes objects into tree structures, enabling clients to treat individual and composite objects uniformly through a common interface.
+Ex: In the below example, the interface is same for both file and folder. Folder is just opening the list of files.
+
+// Abstract class for FileSystemComponent
+abstract class FileSystemComponent {
+    public abstract void display();
+}
+
+// Concrete class for File
+class File extends FileSystemComponent {
+    private String name;
+    private int size;
+
+    public File(String name, int size) {
+        this.name = name;
+        this.size = size;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("File: " + name + " (" + size + " bytes)");
+    }
+}
+
+// Concrete class for Directory
+class Directory extends FileSystemComponent {
+    private String name;
+    private List<FileSystemComponent> components;
+
+    public Directory(String name) {
+        this.name = name;
+        this.components = new ArrayList<>();
+    }
+
+    @Override
+    public void display() {
+        System.out.println("Directory: " + name);
+        for (FileSystemComponent component : components) {
+            component.display();
+        }
+    }
+
+    public void addComponent(FileSystemComponent component) {
+        components.add(component);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create leaf objects (files)
+        FileSystemComponent file1 = new File("document.txt", 1024);
+        FileSystemComponent file2 = new File("image.jpg", 2048);
+
+        // Create a composite object (directory)
+        Directory directory = new Directory("My Documents");
+
+        // Add leaf objects to the directory
+        directory.addComponent(file1);
+        directory.addComponent(file2);
+
+        // Display the directory (including its contents)
+        directory.display();
+    }
+}
+
+Facade Design Pattern:
+The Facade Design Pattern is a structural software design pattern that gives a simple, unified interface to a large and complex body of code or a set of subsystem. It is almost like a template pattern.
+
+Ex: Like a template pattern the separate class will going to contain the checks. Like for placing the order to verify payment, otp, other checks in one class we just create a separate class to check all the things.
+
+
+Proxy Design Pattern:
+Proxy Design Pattern is a structural design pattern where a proxy object acts as a placeholder to control access to the real object. 
+
+Ex:
+abstract class Image {
+    public abstract void display();
+}
+
+class RealImage : Image 
+{
+    private String filename;
+
+    public RealImage(String filename) {
+        this.filename = filename;
+        LoadImage(filename);
+    }
+    public void LoadImage(String filename) {
+        System.out.println("Loading " + filename);
+    }
+
+    @Override
+    public void display() {
+        System.out.println("Displaying " + filename);
+    }
+}
+
+class ProxyImage : Image 
+{
+    private String filename;
+    private RealImage realImage = null;
+
+    public ProxyImage(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public void display() {
+        if (realImage == null) {
+            realImage = new RealImage(filename);
+        }
+        realImage.display();
+    }
+}
+
+=> Here first at the time of object creation for image is slower because loading the image is expensive. So we introduced proxy where display() method will responsible for load image. Even the display() is slower because of loadimage but the client asked for load image in display() and make object creation faster. Here we need to compromise at any one place.
